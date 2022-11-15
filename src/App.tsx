@@ -1,4 +1,4 @@
-import { ContactLink } from "./components/ContactLink";
+import { Link } from "./components/Link";
 import { Component, For } from "solid-js";
 import { Logo } from "./components/Logo";
 import { ProfilePicture } from "./components/ProfilePicture";
@@ -29,7 +29,7 @@ const App: Component = () => {
             <span class="block">I'm
               <span class="border-b-4 border-green"> Adam Keyes</span>.</span></h1>
           <p class="mt-7 text-gray">Based in the UK, I’m a front-end developer passionate about building accessible web apps that users love.</p>
-          <ContactLink text="contact me" className="mt-6" />
+          <Link text="contact me" className="mt-6" />
           <ProfilePicture className="hidden md:block" />
         </div>
         <div class="py-10 border-b border-lightGray text-center flex flex-col gap-6">
@@ -40,14 +40,14 @@ const App: Component = () => {
           <ExperienceItem title="React" body="3 Years Experience" />
           <ExperienceItem title="Sass" body="3 Years Experience" />
         </div>
-        <div class="pt-20">
-          <div>
-            <h1>Projects</h1>
-            <ContactLink text="Contact me" />
+        <div class="pt-24">
+          <div class="flex justify-between items-center">
+            <h1 class="text-4xl">Projects</h1>
+            <Link text="Contact me" />
           </div>
-          <div>
+          <div class="mt-10">
             <For each={projects}>
-              {(project) => <Project {...project} />}
+              {(project) => <Project {...project} className="mt-10" />}
             </For>
           </div>
         </div>
@@ -60,7 +60,7 @@ const App: Component = () => {
           <TextField type="text" placeholder="name" showError={false} />
           <TextField type="email" placeholder="email" showError={false} />
           <TextField type="textArea" placeholder="message" showError={false} />
-          <ContactLink text="Send Message" />
+          <Link text="Send Message" />
         </form>
       </section>
 

@@ -1,4 +1,5 @@
 import { Component, For } from "solid-js";
+import { Link } from "./Link";
 
 type ProjectProps = {
   className?: string;
@@ -10,7 +11,7 @@ type ProjectProps = {
 
 export const Project: Component<ProjectProps> = (props) => {
   return (
-    <div>
+    <div class={`${props.className}`}>
       <img
         srcSet={`${props.imageLarge} 1080w,
                  ${props.imageSmall} 686w`}
@@ -18,15 +19,15 @@ export const Project: Component<ProjectProps> = (props) => {
                         (min-width: 768px) 45vw,
                         100vw"
         src={props.imageLarge} alt="project image" />
-      <p class="uppercase">{props.title}</p>
-      <div>
+      <p class="uppercase text-2xl mt-5">{props.title}</p>
+      <div class="flex text-gray mt-2 gap-4 text-lg">
         <For each={props.technologies}>
           {(technology) => <p>{technology}</p>}
         </For>
       </div>
-      <div>
-        <a href="#">View Project</a>
-        <a href="#">View Code</a>
+      <div class="mt-5">
+        <Link text="View Project" />
+        <Link text="View Code" className="ml-8" />
       </div>
     </div>
   );
