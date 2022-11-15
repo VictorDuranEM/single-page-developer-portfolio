@@ -9,7 +9,7 @@ import { TextField } from "./components/TextField";
 
 const App: Component = () => {
   return (
-    <>
+    <div class="relative overflow-hidden">
       <header class="bg-darker text-white">
         <div class="absolute top-0 w-full pt-5 flex justify-between items-center flex-col gap-5">
           <Logo />
@@ -77,7 +77,7 @@ const App: Component = () => {
       
       <img src="/pattern-rings.svg" alt="" class="absolute top-32 h-[129px] right-1/2" aria-hidden="true" />
       <img src="/pattern-rings.svg" alt="" class="absolute top-[1233px] h-[129px] left-1/2" aria-hidden="true" />
-    </>
+    </div>
 
   )
 }
