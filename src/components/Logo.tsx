@@ -6,6 +6,6 @@ type LogoProps = {
 
 export const Logo: Component<LogoProps> = (props) => {
   return (
-    <p class={`text-2xl font-bold ${props.className}`}>adamkeyes</p>
+    <p class={`text-2xl font-bold md:text-[2rem] ${props.className}`}>adamkeyes</p>
   );
 };
