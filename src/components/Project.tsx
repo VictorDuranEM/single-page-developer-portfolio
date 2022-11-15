@@ -13,6 +13,8 @@ export const Project: Component<ProjectProps> = (props) => {
   return (
     <div class={`${props.className}`}>
       <img
+        width={1080}
+        height={800}
         srcSet={`${props.imageLarge} 1080w,
                  ${props.imageSmall} 686w`}
         sizes="(min-width: 1028px) 38vw,
