@@ -20,12 +20,12 @@ const App: Component = () => {
             <img src="/icon-twitter.svg" alt="" class="w-5 md:w-auto" />
           </div>
         </div>
-        <ProfilePicture className="w-[174px] mx-auto md:hidden relative z-10" />
+          <ProfilePicture className="w-[174px] mx-auto md:hidden relative z-10" />
       </header>
 
       <main class="bg-darker text-white pt-10 px-4 md:px-0 md:py-0">
         <div class="max-w-[1150px] mx-auto">
-          <div class="text-center pb-20 md:text-left md:grid md:pl-8 md:grid-cols-[auto_322px] xl:grid-cols-[auto_444px]">
+          <div class="text-center pb-20 md:text-left md:grid md:pl-8 md:grid-cols-[auto_322px] xl:grid-cols-[auto_444px] xl:pb-28">
             <h1 class="font-bold text-4xl leading-none md:text-7xl md:pt-36 md:col-start-1 md:row-start-1 md:col-span-2 md:z-10 md:max-w-[64%] xl:text-[5.5rem] xl:max-w-[80%] xl:tracking-[-2.5px] xl:pt-52"><span class="md:block xl:inline">Nice to</span> meet you!
               <span class="block md:inline xl:block"> I'm
                 <span class="md:block md:mt-3 xl:inline">
@@ -35,10 +35,14 @@ const App: Component = () => {
             </h1>
             <p class="mt-7 text-gray md:text-lg md:mt-16 md:max-w-[445px] xl:mt-0">Based in the UK, I’m a front-end developer passionate about building accessible web apps that users love.</p>
             <Link text="contact me" className="mt-6 md:justify-self-start md:mt-9 md:self-start xl:mt-0" />
-            <ProfilePicture className="hidden md:block md:col-start-2 md:row-start-1 md:row-span-3" />
+            <div class="relative hidden md:block md:col-start-2 md:row-start-1 md:row-span-3">
+              <ProfilePicture />
+              <img src="/pattern-circle.svg" alt="" class="absolute bottom-16 left-0 -translate-x-1/2 hidden xl:block" aria-hidden="true" />
+            </div>
+
           </div>
           <div class="px-8">
-            <div class="py-10 border-y border-white text-center flex flex-col gap-6 md:grid md:grid-cols-2 md:text-left md:gap-y-14 md:border-b-0 md:py-14">
+            <div class="py-10 border-y border-white text-center flex flex-col gap-6 md:grid md:grid-cols-2 md:text-left md:gap-y-14 md:border-b-0 md:py-14 xl:py-20 xl:grid-cols-3 xl:gap-y-16">
               <ExperienceItem title="HTML" body="4 Years Experience" />
               <ExperienceItem title="CSS" body="4 Years Experience" />
               <ExperienceItem title="Javascript" body="4 Years Experience" />
@@ -48,10 +52,10 @@ const App: Component = () => {
             </div>
             <div class="pt-24 pb-20 md:pt-16 md:pb-28">
               <div class="flex justify-between items-center">
-                <h1 class="text-4xl md:text-7xl">Projects</h1>
+                <h1 class="text-4xl md:text-7xl xl:text-[5.5rem]">Projects</h1>
                 <Link text="Contact me" />
               </div>
-              <div class="mt-10 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-16">
+              <div class="mt-10 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-16 xl:mt-20 xl:gap-x-8 xl:gap-y-20">
                 <For each={projects}>
                   {(project) => <Project {...project} className="mt-10 md:mt-0" />}
                 </For>
@@ -87,8 +91,8 @@ const App: Component = () => {
       </footer>
 
       {/* Rings in the background  */}
-      <img src="/pattern-rings.svg" alt="" class="absolute top-32 h-[129px] left-0 -translate-x-1/2 md:top-24" aria-hidden="true" />
-      <img src="/pattern-rings.svg" alt="" class="absolute top-[77rem] h-[129px] right-0 translate-x-1/2 md:top-[66rem] md:translate-x-2/3" aria-hidden="true" />
+      <img src="/pattern-rings.svg" alt="" class="absolute top-32 h-[129px] left-0 -translate-x-1/2 md:top-24 xl:-translate-x-24" aria-hidden="true" />
+      <img src="/pattern-rings.svg" alt="" class="absolute top-[77rem] h-[129px] right-0 translate-x-1/2 md:top-[66rem] md:translate-x-2/3 xl:translate-x-1/2" aria-hidden="true" />
       <img src="/pattern-rings.svg" alt="" class="absolute bottom-[17rem] h-[129px] left-0 -translate-x-1/2 md:-translate-x-3/4 md:bottom-[13rem]" aria-hidden="true" />
     </div>
 
