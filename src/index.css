@@ -6,4 +6,8 @@
   html {
     font-family: 'Space Grotesk', sans-serif;
   }
+  
+  .icon-filter {
+    filter: sepia(27%) saturate(5053%) hue-rotate(72deg) brightness(100%) contrast(77%);
+  }
 }

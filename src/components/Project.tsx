@@ -1,5 +1,5 @@
 import { Component, For } from "solid-js";
-import { Link } from "./Link";
+import { CTA } from "./Link";
 
 type ProjectProps = {
   className?: string;
@@ -11,7 +11,7 @@ type ProjectProps = {
 
 export const Project: Component<ProjectProps> = (props) => {
   return (
-    <div class={`relative ${props.className}`}>
+    <div class={`relative group ${props.className}`}>
       <div>
         <img
           width={1080}
@@ -29,9 +29,10 @@ export const Project: Component<ProjectProps> = (props) => {
           </For>
         </div>
       </div>
-      <div class="mt-5 flex gap-8 xl:absolute xl:inset-0 xl:mt-0 xl:flex-col xl:items-center xl:justify-center xl:text-center xl:gap-12 xl:before:absolute xl:before:inset-0 xl:before:bg-dark">
-        <Link text="View Project" />
-        <Link text="View Code" />
+      <div class="mt-5 flex gap-8 xl:absolute xl:inset-0 xl:mt-0 xl:flex-col xl:items-center xl:justify-center xl:text-center xl:gap-12 xl:h-[398px] xl:hidden xl:group-hover:flex">
+        <div class="hidden xl:block bg-dark absolute inset-0 opacity-60"></div>
+        <CTA type="link" destination="#" text="View Project" className="relative" />
+        <CTA type="link" destination="#" text="View Code" className="relative" />
       </div>
     </div>
   );
