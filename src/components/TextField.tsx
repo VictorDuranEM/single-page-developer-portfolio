@@ -2,28 +2,42 @@ import { Component, Show } from "solid-js";
 
 type TextFieldProps = {
   className?: string;
+  name: string;
   type: string;
   placeholder: string;
   showError: boolean;
+  errorMessage: string;
+  handleLoseFocus: (event: Event) => void;
+  handleFocus: (event: FocusEvent) => void;
 };
 
 export const TextField: Component<TextFieldProps> = (props) => {
   const borderColor = props.showError ? "border-red" : "border-white";
   return (
-    <div class={`flex flex-col ${props.className}`}>
+    <div class={`relative flex flex-col ${props.className}`}>
       <Show when={props.type === "textArea"}
         fallback={
-          <input type={props.type} placeholder={props.placeholder}
-            class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none invalid:border-red`} />
+          <input
+            name={props.name}
+            type={props.type}
+            placeholder={props.placeholder}
+            class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none`}
+            onFocusOut={props.handleLoseFocus}
+            onFocusIn={props.handleFocus}
+          />
         }
       >
         <textarea
+          name={props.name}
           placeholder={props.placeholder}
-          class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none invalid:border-red`}
-          rows={4}  
+          class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none`}
+          rows={4}
+          onFocusOut={props.handleLoseFocus}
+          onFocusIn={props.handleFocus}
         />
       </Show>
-      <p class="text-red text-xs mt-1.5 self-end" style={`display:${props.showError ? 'block' : 'none'}`}>Sorry, invalid format here</p>
+      <i class={`fa-solid fa-circle-exclamation text-red absolute right-0 ${props.showError ? 'block' : 'hidden'}`}></i>
+      <p class="text-red text-xs mt-1.5 self-end" style={`display:${props.showError ? 'block' : 'none'}`}>{props.errorMessage}</p>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { CTA } from "./components/Link";
-import { Component, For } from "solid-js";
+import { Component, createSignal, For } from "solid-js";
 import { Logo } from "./components/Logo";
 import { ProfilePicture } from "./components/ProfilePicture";
 import { ExperienceItem } from "./components/ExperienceItem";
@@ -8,6 +8,77 @@ import { projects } from "./assets/projects";
 import { TextField } from "./components/TextField";
 
 const App: Component = () => {
+  const [formErrors, setFormErrors] = createSignal({
+    name: false,
+    email: false,
+    message: false,
+  });
+
+  const [formErrorMessages, setFormErrorMessages] = createSignal({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleFocus = (event: FocusEvent) => {
+    const target = event.target as HTMLInputElement;
+    setFormErrors({ ...formErrors(), [target.name]: false });
+  };
+
+
+  const handleLoseFocus = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    if (value == "") {
+      setFormErrors({ ...formErrors(), [target.name]: true });
+      setFormErrorMessages({ ...formErrorMessages(), [target.name]: "This field is required" });
+    }
+
+    if (target.name === "email" && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setFormErrors({ ...formErrors(), [target.name]: true });
+      setFormErrorMessages({ ...formErrorMessages(), [target.name]: "Please enter a valid email" });
+    }
+  }
+
+  const handleSubmit = (event: Event) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
+    let formHasErrors = false;
+    if (formErrors().name || formErrors().email || formErrors().message) {
+      formHasErrors = true;
+    }
+    if (name === "") {
+      setFormErrors({ ...formErrors(), name: true });
+      setFormErrorMessages({ ...formErrorMessages(), name: "This field is required" });
+      formHasErrors = true;
+    }
+    if (email === "") {
+      setFormErrors({ ...formErrors(), email: true });
+      setFormErrorMessages({ ...formErrorMessages(), email: "This field is required" });
+      formHasErrors = true;
+    }
+    if (message === "") {
+      setFormErrors({ ...formErrors(), message: true });
+      setFormErrorMessages({ ...formErrorMessages(), message: "This field is required" });
+      formHasErrors = true;
+    }
+
+    if (!formHasErrors) {
+      const data = {
+        name,
+        email,
+        message,
+      };
+      console.log(data);
+      console.log("Form submitted");
+    }
+  }
+
+
   return (
     <div class="relative overflow-hidden">
       <header class="bg-darker text-white ">
@@ -70,10 +141,31 @@ const App: Component = () => {
           <div class="md:max-w-[445px] mx-auto xl:grid xl:grid-cols-2 xl:grid-rows-[auto_1fr] xl:max-w-full xl:gap-x-56">
             <h1 class="text-4xl md:text-7xl xl:text-[5.5rem]">Contact</h1>
             <p class="text-gray mt-5 md:text-lg xl:row-start-2 xl:mt-9">I would love to hear about your project and how I could help. Please fill in the form, and I’ll get back to you as soon as possible.</p>
-            <form class="mt-12 flex flex-col gap-8 pb-20 md:pb-24 xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:mt-0">
-              <TextField type="text" placeholder="name" showError={false} />
-              <TextField type="email" placeholder="email" showError={false} />
-              <TextField type="textArea" placeholder="message" showError={false} />
+            <form onSubmit={handleSubmit} class="mt-12 flex flex-col gap-8 pb-20 md:pb-24 xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:mt-0">
+              <TextField
+                name="name"
+                type="text"
+                placeholder="name"
+                showError={formErrors().name}
+                errorMessage={formErrorMessages().name}
+                handleLoseFocus={handleLoseFocus}
+                handleFocus={handleFocus} />
+              <TextField
+                name="email"
+                type="email"
+                placeholder="email"
+                showError={formErrors().email}
+                errorMessage={formErrorMessages().email}
+                handleLoseFocus={handleLoseFocus}
+                handleFocus={handleFocus} />
+              <TextField
+                name="message"
+                type="textArea"
+                placeholder="message"
+                showError={formErrors().message}
+                errorMessage={formErrorMessages().message}
+                handleLoseFocus={handleLoseFocus}
+                handleFocus={handleFocus} />
               <CTA type="button" text="Send Message" className="self-end" />
             </form>
           </div>
@@ -84,10 +176,10 @@ const App: Component = () => {
         <div class="xl:max-w-[1110px] xl:mx-auto flex items-center justify-between flex-col gap-5 md:flex-row">
           <Logo />
           <div class="flex gap-6">
-            <img src="/icon-github.svg" alt="" class="cursor-pointer hover:icon-filter"/>
-            <img src="/icon-frontend-mentor.svg" alt="" class="cursor-pointer hover:icon-filter"/>
-            <img src="/icon-linkedin.svg" alt="" class="cursor-pointer hover:icon-filter"/>
-            <img src="/icon-twitter.svg" alt="" class="cursor-pointer hover:icon-filter"/>
+            <img src="/icon-github.svg" alt="" class="cursor-pointer hover:icon-filter" />
+            <img src="/icon-frontend-mentor.svg" alt="" class="cursor-pointer hover:icon-filter" />
+            <img src="/icon-linkedin.svg" alt="" class="cursor-pointer hover:icon-filter" />
+            <img src="/icon-twitter.svg" alt="" class="cursor-pointer hover:icon-filter" />
           </div>
         </div>
       </footer>
