@@ -8,6 +8,12 @@ import { projects } from "./assets/projects";
 import { TextField } from "./components/TextField";
 
 const App: Component = () => {
+  const [formValues, setFormValues] = createSignal({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   const [formErrors, setFormErrors] = createSignal({
     name: false,
     email: false,
@@ -19,6 +25,14 @@ const App: Component = () => {
     email: "",
     message: "",
   });
+
+  const [formSendMessage, setFormSendMessage] = createSignal("");
+
+  const handleChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const { name, value } = target;
+    setFormValues({ ...formValues(), [name]: value });
+  };
 
   const handleFocus = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
@@ -68,28 +82,23 @@ const App: Component = () => {
     }
 
     if (!formHasErrors) {
-      const data = {
-        name,
-        email,
-        message,
-      };
-      
-      fetch("https://single-page-developer-portfolio.vercel.app/api/handler", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const processForm = async () => {
+        const response = await fetch("/api/handler", {
+          method: "POST",
+          body: JSON.stringify(formValues()),
+          headers: {
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
-        })
-        .then((response) => {
-          console.log(response)
-          if (response.status === 200) {
-            alert("Message sent successfully");
-          } else {
-            alert("Something went wrong");
-          }
+        });
+        if (!response.ok || response.status !== 200) {
+          setFormSendMessage("Something went wrong, please try again later");
+          return;
         }
-      );
+        setFormSendMessage("Thanks for your message!");
+        setFormValues({ name: "", email: "", message: "" });
+      };
+
+      processForm();
     }
   }
 
@@ -156,9 +165,11 @@ const App: Component = () => {
           <div class="md:max-w-[445px] mx-auto xl:grid xl:grid-cols-2 xl:grid-rows-[auto_1fr] xl:max-w-full xl:gap-x-56">
             <h1 class="text-4xl md:text-7xl xl:text-[5.5rem]">Contact</h1>
             <p class="text-gray mt-5 md:text-lg xl:row-start-2 xl:mt-9">I would love to hear about your project and how I could help. Please fill in the form, and I’ll get back to you as soon as possible.</p>
-            <form onSubmit={handleSubmit} class="mt-12 flex flex-col gap-8 pb-20 md:pb-24 xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:mt-0">
+            <form onSubmit={handleSubmit} class="relative mt-12 flex flex-col gap-8 pb-20 md:pb-24 xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:mt-0">
               <TextField
                 name="name"
+                value={formValues().name}
+                handleChange={handleChange}
                 type="text"
                 placeholder="name"
                 showError={formErrors().name}
@@ -167,6 +178,8 @@ const App: Component = () => {
                 handleFocus={handleFocus} />
               <TextField
                 name="email"
+                value={formValues().email}
+                handleChange={handleChange}
                 type="email"
                 placeholder="email"
                 showError={formErrors().email}
@@ -175,19 +188,24 @@ const App: Component = () => {
                 handleFocus={handleFocus} />
               <TextField
                 name="message"
+                value={formValues().message}
+                handleChange={handleChange}
                 type="textArea"
                 placeholder="message"
                 showError={formErrors().message}
                 errorMessage={formErrorMessages().message}
                 handleLoseFocus={handleLoseFocus}
                 handleFocus={handleFocus} />
-              <CTA type="button" text="Send Message" className="self-end" />
+              <div class="flex justify-between">
+                <p>{formSendMessage()}</p>
+                <CTA type="button" text="Send Message" className="self-end" />
+              </div>
             </form>
           </div>
         </div>
       </section>
 
-      <footer class="bg-dark text-white pt-10 pb-16 md:px-8 md:pt-8 md:pb-10 xl:pt-12 xl:pb-20">
+      <footer class="bg-dark text-white pt-10 pb-16 md:px-8 md:pt-8 md:pb-10 xl:pt-12 xl:pbrelative -20">
         <div class="xl:max-w-[1110px] xl:mx-auto flex items-center justify-between flex-col gap-5 md:flex-row">
           <Logo />
           <div class="flex gap-6">

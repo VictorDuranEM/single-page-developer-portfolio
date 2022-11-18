@@ -3,6 +3,8 @@ import { Component, Show } from "solid-js";
 type TextFieldProps = {
   className?: string;
   name: string;
+  value: string;
+  handleChange: (e: Event) => void;
   type: string;
   placeholder: string;
   showError: boolean;
@@ -19,6 +21,8 @@ export const TextField: Component<TextFieldProps> = (props) => {
         fallback={
           <input
             name={props.name}
+            value={props.value}
+            onInput={props.handleChange}
             type={props.type}
             placeholder={props.placeholder}
             class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none`}
@@ -29,6 +33,8 @@ export const TextField: Component<TextFieldProps> = (props) => {
       >
         <textarea
           name={props.name}
+          value={props.value}
+          onInput={props.handleChange}
           placeholder={props.placeholder}
           class={`bg-transparent border-b ${borderColor} pb-4 px-6 text-white uppercase tracking-wide focus:border-green focus:outline-none`}
           rows={4}

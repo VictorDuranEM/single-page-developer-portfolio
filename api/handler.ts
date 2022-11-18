@@ -1,30 +1,29 @@
 import { VercelRequest, VercelResponse } from "@vercel/node"
+import { Records } from "airtable";
+import AirtableError from "airtable/lib/airtable_error";
 
-type CallbackFunction = (req:VercelRequest, res:VercelResponse) => void
+var Airtable = require("airtable");
+var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
-const allowCors = (fn:CallbackFunction) => async (req:VercelRequest, res:VercelResponse) => {
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-  if (req.method === 'OPTIONS') {
-    res.status(200).end()
-    return
-  }
-  return await fn(req, res)
-}
-
-export default function handler(request:VercelRequest, response:VercelResponse) {
-  response.status(200).json({
-    body: request.body,
-    query: request.query,
-    cookies: request.cookies,
+export default function handler(request: VercelRequest, response: VercelResponse) {
+  console.log(new Date().toDateString())
+  base('Contact').create([
+    {
+      "fields": {
+        "Name": request.body.name,
+        "Email": request.body.email,
+        "Message": request.body.message,
+        "Date": new Date().toDateString()
+      }
+    }
+  ], function (err: AirtableError, records: Records<any>) {
+    if (err) {
+      console.error(err);
+      return response.status(500).json({ error: err });
+    }
+    records.forEach(function (record) {
+      console.log(record.getId());
+      return response.status(200).json({ message: "Success" });
+    });
   });
 }
-
-module.exports = allowCors(handler)
