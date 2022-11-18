@@ -73,8 +73,23 @@ const App: Component = () => {
         email,
         message,
       };
-      console.log(data);
-      console.log("Form submitted");
+      
+      fetch("https://single-page-developer-portfolio.vercel.app/api/handler", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+        .then((response) => {
+          console.log(response)
+          if (response.status === 200) {
+            alert("Message sent successfully");
+          } else {
+            alert("Something went wrong");
+          }
+        }
+      );
     }
   }
 
