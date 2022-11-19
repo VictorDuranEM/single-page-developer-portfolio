@@ -1,6 +1,6 @@
 # Frontend Mentor - Single Page Design
 
-This is a solution to the [Meet Landing Page challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/meet-landing-page-rbTDS6OUR).
+This is a solution to the [Single Page Developer Portfolio challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/singlepage-developer-portfolio-bBVj2ZPi-x).
 
 ## Table of contents
 
@@ -21,32 +21,39 @@ This is a solution to the [Meet Landing Page challenge on Frontend Mentor](https
 
 Users should be able to:
 
-- View the optimal layout for the site depending on their device's screen size
+- Receive an error message when the form is submitted if:
+  - Any field is empty
+  - The email address is not formatted correctly
+- View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
-- Navigate the slider using either their mouse/trackpad or keyboard
+- Bonus: Hook the form up so it sends and stores the user's enquiry (you can use a spreadsheet or Airtable to save the enquiries)
 
 ### Links
 
 - Live Site: <https://single-page-design-portfolio-peach.vercel.app/>
-- Source Code: <https://github.com/VictorDuranEM/single-page-design-portfolio>
+- Source Code: <https://github.com/VictorDuranEM/single-page-developer-portfolio>
 
 ## My process
 
 ### Built with
 
-- [Next.js](https://nextjs.org/) - React framework
-- [React](https://reactjs.org/) - JS library
+- [Solid](https://www.solidjs.com/) - JS library
 - [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [CVA](https://github.com/joe-bell/cva) - CSS-in-JS library
+- [Vite](https://vitejs.dev/) - JS bundler
+- [Airtable](https://airtable.com/) - Database
+- [Airtable API](https://airtable.com/api) - API
+- [Vercel](https://vercel.com/) - Hosting
+- [Vercel CLI](https://vercel.com/cli) - CLI
+- [Vercel Functions](https://vercel.com/docs/serverless-functions/introduction) - Serverless functions
 - Mobile-first workflow
 
 ### What I learned
 
-Learned how to use CVA to define variants in components that determine the CSS classes to be applied to the components. Also learned how to make a slider similar the one from Netflix.
+Finally had the opportunity to interact with an external API and create my own serverless functions! This challenge was amazing as it allowed me to finally use fetch and create backend code in the form of Vercel serverless functions.
 
 ### Continued development
 
-In future projects, I want to include data fetching to learn how to use the getStaticProps and getServerSideProps functions.
+I want to continue using serverless functions and APIs to create more dynamic web applications.
 
 ## Author
 
