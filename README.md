@@ -1,10 +1,10 @@
-# Frontend Mentor - Single Page Design
+# Frontend Mentor - Single Page Developer Portfolio
 
 This is a solution to the [Single Page Developer Portfolio challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/singlepage-developer-portfolio-bBVj2ZPi-x).
 
 ## Table of contents
 
-- [Frontend Mentor - Single Page Design](#frontend-mentor---single-page-design)
+- [Frontend Mentor - Single Page Developer Portfolio](#frontend-mentor---single-page-developer-portfolio)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
     - [The challenge](#the-challenge)
@@ -30,7 +30,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site: <https://single-page-design-portfolio-peach.vercel.app/>
+- Live Site: <https://single-page-developer-portfolio.vercel.app/>
 - Source Code: <https://github.com/VictorDuranEM/single-page-developer-portfolio>
 
 ## My process
